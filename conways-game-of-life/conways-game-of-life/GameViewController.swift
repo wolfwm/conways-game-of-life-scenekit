@@ -6,16 +6,25 @@
 //  Copyright © 2019 Wolfgang Walder. All rights reserved.
 //
 
+var speed: Double = 0.1
+
 import SceneKit
 import QuartzCore
 
 class GameViewController: NSViewController {
     
+    let game = GameOfLife()
+    
+    let grid = Grid(width: 30, height: 30, y: 0, cubeEdgeSize: 1)
+    
+    var timer: Timer = Timer()
+    var isTimerRunning = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
+        let scene = SCNScene(named: "art.scnassets/GameOfLife.scn")!
         
         // create and add a camera to the scene
         let cameraNode = SCNNode()
@@ -39,11 +48,7 @@ class GameViewController: NSViewController {
         ambientLightNode.light!.color = NSColor.darkGray
         scene.rootNode.addChildNode(ambientLightNode)
         
-        // retrieve the ship node
-        let ship = scene.rootNode.childNode(withName: "ship", recursively: true)!
-        
-        // animate the 3d object
-        ship.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
+        scene.rootNode.addChildNode(grid)
         
         // retrieve the SCNView
         let scnView = self.view as! SCNView
@@ -67,6 +72,11 @@ class GameViewController: NSViewController {
         scnView.gestureRecognizers = gestureRecognizers
     }
     
+    @objc func fireTimer() {
+        game.updateGrid(grid: grid)
+        isTimerRunning = true
+    }
+    
     @objc
     func handleClick(_ gestureRecognizer: NSGestureRecognizer) {
         // retrieve the SCNView
@@ -80,26 +90,48 @@ class GameViewController: NSViewController {
             // retrieved the first clicked object
             let result = hitResults[0]
             
-            // get its material
-            let material = result.node.geometry!.firstMaterial!
-            
-            // highlight it
-            SCNTransaction.begin()
-            SCNTransaction.animationDuration = 0.5
-            
-            // on completion - unhighlight
-            SCNTransaction.completionBlock = {
-                SCNTransaction.begin()
-                SCNTransaction.animationDuration = 0.5
-                
-                material.emission.contents = NSColor.black
-                
-                SCNTransaction.commit()
+            if let cube = result.node as? Cube {
+                if cube.state == 0 {
+                    cube.state = 1
+                } else {
+                    cube.state = 0
+                }
+            }
+        }
+    }
+    
+    override func keyDown(with event: NSEvent) {
+        let keyCode = event.keyCode
+        
+        if keyCode == 0x31 { // 0x31 = spacebar
+            game.updateGrid(grid: grid)
+        } else if keyCode == 0x24 || keyCode == 0x4C { // 0x24 = return, 0x4C = enter
+            if isTimerRunning {
+                timer.invalidate()
+                isTimerRunning = false
+            } else {
+                timer = Timer.scheduledTimer(withTimeInterval: speed, repeats: true) { timer in
+                    self.game.updateGrid(grid: self.grid)
+                }
+                self.isTimerRunning = true
             }
             
-            material.emission.contents = NSColor.red
-            
-            SCNTransaction.commit()
+        } else if keyCode == 0x7E { // 0x7E = up arrow
+            if speed >= 0.01 {
+                if speed <= 0.1 {
+                    speed -= 0.01
+                } else {
+                    speed -= 0.1
+                }
+            }
+        } else if keyCode == 0x7D { // 0x7D = down arrow
+            if speed <= 1 {
+                if speed <= 0.1 {
+                    speed += 0.01
+                } else {
+                    speed += 0.1
+                }
+            }
         }
     }
 }

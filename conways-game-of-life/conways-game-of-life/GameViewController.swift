@@ -15,8 +15,6 @@ class GameViewController: NSViewController, SCNSceneRendererDelegate {
     
     let grid = Grid(width: 30, height: 30, y: 0, cubeEdgeSize: 1)
     
-    var isRunning = false
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -106,11 +104,24 @@ class GameViewController: NSViewController, SCNSceneRendererDelegate {
         if keyCode == 0x31 { // 0x31 = spacebar
             game.updateGrid(grid: grid)
         } else if keyCode == 0x24 || keyCode == 0x4C { // 0x24 = return, 0x4C = enter
+            isRunning = !isRunning
             
         } else if keyCode == 0x7E { // 0x7E = up arrow
             
         } else if keyCode == 0x7D { // 0x7D = down arrow
             
+        }
+    }
+    
+    var nextTime: TimeInterval = 0
+    let interval: TimeInterval = 0.3
+    var isRunning = false
+    
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        if time >= nextTime && isRunning {
+            game.updateGrid(grid: grid)
+            
+            nextTime = time + interval
         }
     }
 }

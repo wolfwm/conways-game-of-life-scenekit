@@ -1,0 +1,348 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		79B8EA12236B553C0085F3F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8EA11236B553C0085F3F0 /* AppDelegate.swift */; };
+		79B8EA14236B553C0085F3F0 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8EA13236B553C0085F3F0 /* GameViewController.swift */; };
+		79B8EA16236B553C0085F3F0 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 79B8EA15236B553C0085F3F0 /* art.scnassets */; };
+		79B8EA18236B553D0085F3F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79B8EA17236B553D0085F3F0 /* Assets.xcassets */; };
+		79B8EA1B236B553D0085F3F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79B8EA19236B553D0085F3F0 /* Main.storyboard */; };
+		79B8EA24236B58330085F3F0 /* Cube.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8EA23236B58330085F3F0 /* Cube.swift */; };
+		79B8EA26236B77060085F3F0 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8EA25236B77060085F3F0 /* Grid.swift */; };
+		79B8EA28236B957E0085F3F0 /* GameOfLife.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B8EA27236B957E0085F3F0 /* GameOfLife.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		79B8EA0E236B553C0085F3F0 /* conways-game-of-life.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "conways-game-of-life.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		79B8EA11236B553C0085F3F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		79B8EA13236B553C0085F3F0 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		79B8EA15236B553C0085F3F0 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
+		79B8EA17236B553D0085F3F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		79B8EA1A236B553D0085F3F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		79B8EA1C236B553D0085F3F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		79B8EA1D236B553D0085F3F0 /* conways_game_of_life.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = conways_game_of_life.entitlements; sourceTree = "<group>"; };
+		79B8EA23236B58330085F3F0 /* Cube.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cube.swift; sourceTree = "<group>"; };
+		79B8EA25236B77060085F3F0 /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
+		79B8EA27236B957E0085F3F0 /* GameOfLife.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOfLife.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		79B8EA0B236B553C0085F3F0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		79B8EA05236B553C0085F3F0 = {
+			isa = PBXGroup;
+			children = (
+				79B8EA10236B553C0085F3F0 /* conways-game-of-life */,
+				79B8EA0F236B553C0085F3F0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		79B8EA0F236B553C0085F3F0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				79B8EA0E236B553C0085F3F0 /* conways-game-of-life.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		79B8EA10236B553C0085F3F0 /* conways-game-of-life */ = {
+			isa = PBXGroup;
+			children = (
+				79B8EA11236B553C0085F3F0 /* AppDelegate.swift */,
+				79B8EA13236B553C0085F3F0 /* GameViewController.swift */,
+				79B8EA15236B553C0085F3F0 /* art.scnassets */,
+				79B8EA17236B553D0085F3F0 /* Assets.xcassets */,
+				79B8EA19236B553D0085F3F0 /* Main.storyboard */,
+				79B8EA1C236B553D0085F3F0 /* Info.plist */,
+				79B8EA1D236B553D0085F3F0 /* conways_game_of_life.entitlements */,
+				79B8EA23236B58330085F3F0 /* Cube.swift */,
+				79B8EA25236B77060085F3F0 /* Grid.swift */,
+				79B8EA27236B957E0085F3F0 /* GameOfLife.swift */,
+			);
+			path = "conways-game-of-life";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		79B8EA0D236B553C0085F3F0 /* conways-game-of-life */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 79B8EA20236B553D0085F3F0 /* Build configuration list for PBXNativeTarget "conways-game-of-life" */;
+			buildPhases = (
+				79B8EA0A236B553C0085F3F0 /* Sources */,
+				79B8EA0B236B553C0085F3F0 /* Frameworks */,
+				79B8EA0C236B553C0085F3F0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "conways-game-of-life";
+			productName = "conways-game-of-life";
+			productReference = 79B8EA0E236B553C0085F3F0 /* conways-game-of-life.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		79B8EA06236B553C0085F3F0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1110;
+				LastUpgradeCheck = 1110;
+				ORGANIZATIONNAME = "Wolfgang Walder";
+				TargetAttributes = {
+					79B8EA0D236B553C0085F3F0 = {
+						CreatedOnToolsVersion = 11.1;
+					};
+				};
+			};
+			buildConfigurationList = 79B8EA09236B553C0085F3F0 /* Build configuration list for PBXProject "conways-game-of-life" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 79B8EA05236B553C0085F3F0;
+			productRefGroup = 79B8EA0F236B553C0085F3F0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				79B8EA0D236B553C0085F3F0 /* conways-game-of-life */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		79B8EA0C236B553C0085F3F0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79B8EA1B236B553D0085F3F0 /* Main.storyboard in Resources */,
+				79B8EA18236B553D0085F3F0 /* Assets.xcassets in Resources */,
+				79B8EA16236B553C0085F3F0 /* art.scnassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		79B8EA0A236B553C0085F3F0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79B8EA28236B957E0085F3F0 /* GameOfLife.swift in Sources */,
+				79B8EA14236B553C0085F3F0 /* GameViewController.swift in Sources */,
+				79B8EA12236B553C0085F3F0 /* AppDelegate.swift in Sources */,
+				79B8EA24236B58330085F3F0 /* Cube.swift in Sources */,
+				79B8EA26236B77060085F3F0 /* Grid.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		79B8EA19236B553D0085F3F0 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				79B8EA1A236B553D0085F3F0 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		79B8EA1E236B553D0085F3F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		79B8EA1F236B553D0085F3F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		79B8EA21236B553D0085F3F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "conways-game-of-life/conways_game_of_life.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = YYV8LRMG8S;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = "conways-game-of-life/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wolfgang.conways-game-of-life";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		79B8EA22236B553D0085F3F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "conways-game-of-life/conways_game_of_life.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = YYV8LRMG8S;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = "conways-game-of-life/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wolfgang.conways-game-of-life";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		79B8EA09236B553C0085F3F0 /* Build configuration list for PBXProject "conways-game-of-life" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				79B8EA1E236B553D0085F3F0 /* Debug */,
+				79B8EA1F236B553D0085F3F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		79B8EA20236B553D0085F3F0 /* Build configuration list for PBXNativeTarget "conways-game-of-life" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				79B8EA21236B553D0085F3F0 /* Debug */,
+				79B8EA22236B553D0085F3F0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 79B8EA06236B553C0085F3F0 /* Project object */;
+}

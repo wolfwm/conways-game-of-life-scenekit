@@ -6,19 +6,16 @@
 //  Copyright © 2019 Wolfgang Walder. All rights reserved.
 //
 
-var speed: Double = 0.4
-
 import SceneKit
 import QuartzCore
 
-class GameViewController: NSViewController {
+class GameViewController: NSViewController, SCNSceneRendererDelegate {
     
     let game = GameOfLife()
     
     let grid = Grid(width: 30, height: 30, y: 0, cubeEdgeSize: 1)
     
-    var timer: Timer = Timer()
-    var isTimerRunning = false
+    var isRunning = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +30,7 @@ class GameViewController: NSViewController {
         
         // place the camera
         cameraNode.position = SCNVector3(x: 0, y: 40, z: 0)
+        cameraNode.look(at: SCNVector3(x: 0, y: -5, z: 0))
         
         // create and add a light to the scene
         let lightNode = SCNNode()
@@ -70,11 +68,13 @@ class GameViewController: NSViewController {
         var gestureRecognizers = scnView.gestureRecognizers
         gestureRecognizers.insert(clickGesture, at: 0)
         scnView.gestureRecognizers = gestureRecognizers
-    }
-    
-    @objc func fireTimer() {
-        game.updateGrid(grid: grid)
-        isTimerRunning = true
+        
+        scnView.pointOfView = cameraNode
+        
+        scnView.delegate = self
+        
+        scnView.isPlaying = true
+        scnView.loops = true
     }
     
     @objc
@@ -106,32 +106,11 @@ class GameViewController: NSViewController {
         if keyCode == 0x31 { // 0x31 = spacebar
             game.updateGrid(grid: grid)
         } else if keyCode == 0x24 || keyCode == 0x4C { // 0x24 = return, 0x4C = enter
-            if isTimerRunning {
-                timer.invalidate()
-                isTimerRunning = false
-            } else {
-                timer = Timer.scheduledTimer(withTimeInterval: speed, repeats: true) { timer in
-                    self.game.updateGrid(grid: self.grid)
-                }
-                self.isTimerRunning = true
-            }
             
         } else if keyCode == 0x7E { // 0x7E = up arrow
-            if speed >= 0.01 {
-                if speed <= 0.1 {
-                    speed -= 0.01
-                } else {
-                    speed -= 0.1
-                }
-            }
+            
         } else if keyCode == 0x7D { // 0x7D = down arrow
-            if speed <= 1 {
-                if speed <= 0.1 {
-                    speed += 0.01
-                } else {
-                    speed += 0.1
-                }
-            }
+            
         }
     }
 }

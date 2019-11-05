@@ -22,14 +22,24 @@ class GameOfLife {
                     count = countLivingNeighbors(states: tempStates, x: x, y: y, z: z)
                     
                     if tempStates[y][z][x] == 1 {
-                        if (count <= 1) || (count >= 4) {
+                        if (count <= 2) || (count >= 5) {
                             grid.cubes[y][z][x].state = 0
                         }
                     } else {
-                        if count == 3 {
+                        if count == 4 {
                             grid.cubes[y][z][x].state = 1
                         }
                     }
+                }
+            }
+        }
+    }
+    
+    func resetGrid(grid: Grid) {
+        for y in (0..<grid.cubes.count) {
+            for z in (0..<grid.cubes[y].count) {
+                for x in (0..<grid.cubes[y][z].count) {
+                    grid.cubes[y][z][x].state = 0
                 }
             }
         }

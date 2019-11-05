@@ -26,11 +26,12 @@ class Cube: SCNNode {
             }
         }
     }
-    let colorAlive: CGColor = CGColor(red: 0.3, green: 0.7, blue: 0.1, alpha: 1)
-    let colorDead: CGColor = CGColor(red: 0.3, green: 0.7, blue: 0.1, alpha: 0)
+    let colorAlive: CGColor = CGColor(red: 0.3, green: 0.7, blue: 0.1, alpha: 0.7)
+    let colorDead: CGColor = CGColor(red: 0.3, green: 0.5, blue: 0.7, alpha: 0.1)
     
     init(x: Int, y: Int, z: Int, cubeEdgeSize: CGFloat) {
         self.coord.x = x
+        self.coord.y = y
         self.coord.z = z
         self.cubeEdgeSize = cubeEdgeSize
         self.state = 0

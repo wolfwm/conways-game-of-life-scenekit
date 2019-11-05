@@ -77,7 +77,7 @@ class GameOfLife {
     func countLivingNeighbors(grid: Grid, x: Int, y: Int, z: Int) -> Int {
         var count = 0
         
-        if y-1 >= 0 && y-1 < grid.cubes[y-1].count {
+        if y-1 >= 0 && y-1 < grid.cubes.count {
             if z-1 >= 0 && z-1 < grid.cubes[y-1].count {
                 if x-1 >= 0 && x-1 < grid.cubes[y-1][z-1].count {
                     if grid.cubes[y-1][z-1][x-1].state == 1 {
@@ -139,7 +139,7 @@ class GameOfLife {
             }
         }
         
-        if y >= 0 && y < grid.cubes[y].count {
+        if y >= 0 && y < grid.cubes.count {
             if z-1 >= 0 && z-1 < grid.cubes[y].count {
                 if x-1 >= 0 && x-1 < grid.cubes[y][z-1].count {
                     if grid.cubes[y][z-1][x-1].state == 1 {
@@ -195,7 +195,7 @@ class GameOfLife {
             }
         }
         
-        if y+1 >= 0 && y+1 < grid.cubes[y+1].count {
+        if y+1 >= 0 && y+1 < grid.cubes.count {
             if z-1 >= 0 && z-1 < grid.cubes[y+1].count {
                 if x-1 >= 0 && x-1 < grid.cubes[y+1][z-1].count {
                     if grid.cubes[y+1][z-1][x-1].state == 1 {

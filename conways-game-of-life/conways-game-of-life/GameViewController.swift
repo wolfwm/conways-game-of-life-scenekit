@@ -33,14 +33,14 @@ class GameViewController: NSViewController, SCNSceneRendererDelegate {
         scene?.rootNode.addChildNode(cameraNode)
         
         // place the camera
-        cameraNode.position = SCNVector3(x: 10, y: 10, z: 10)
+        cameraNode.position = SCNVector3(x: 30, y: 30, z: 30)
         cameraNode.look(at: SCNVector3(x: 0, y: 0, z: 0))
         cameraNode.camera?.zFar = 500
         
         // create and add a light to the scene
         lightNode.light = SCNLight()
         lightNode.light!.type = .omni
-        lightNode.position = SCNVector3(x: 0, y: 10, z: 10)
+        lightNode.position = SCNVector3(x: 0, y: 30, z: 30)
         scene?.rootNode.addChildNode(lightNode)
         
         // create and add an ambient light to the scene
@@ -50,7 +50,7 @@ class GameViewController: NSViewController, SCNSceneRendererDelegate {
         ambientLightNode.light!.color = NSColor.darkGray
         scene?.rootNode.addChildNode(ambientLightNode)
         
-        grids.append(Grid(width: 30, height: 30, y: 0, cubeEdgeSize: 1))
+        grids.append(Grid(width: 30, height: 30, depth: 30, cubeEdgeSize: 1))
         scene?.rootNode.addChildNode(grids[0])
         
         // retrieve the SCNView
@@ -136,15 +136,6 @@ class GameViewController: NSViewController, SCNSceneRendererDelegate {
     }
     
     func step() {
-        grids.append(game.createNextGrid(oldGrid: grids[layer], y: layer+1))
-        scene?.rootNode.addChildNode(grids[layer+1])
-        
-        cameraNode.position.y += grids[layer+1].cubeEdgeSize
-        cameraNode.look(at: SCNVector3(0, CGFloat(grids[layer+1].y) * grids[layer+1].cubeEdgeSize, 0))
-        scnView.pointOfView = cameraNode
-        
-        lightNode.position.y += grids[layer+1].cubeEdgeSize
-        
-        layer += 1
+        game.updateGrid(grid: grids[0])
     }
 }

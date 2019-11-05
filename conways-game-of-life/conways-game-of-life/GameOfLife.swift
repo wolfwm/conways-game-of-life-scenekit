@@ -11,86 +11,105 @@ import SceneKit
 class GameOfLife {
     init() {}
     
-    func updateGrid(grid: Grid) {
-        var tempStates: [[Int]] = []
-        
-        for z in (0..<grid.cubes.count) {
-            tempStates.append([])
-            for x in (0..<grid.cubes[z].count) {
-                tempStates[z].append(grid.cubes[z][x].state)
-            }
-        }
+    func createNextGrid(oldGrid: Grid, y: Int) -> Grid {
+        let newGrid: Grid = cloneGrid(oldGrid: oldGrid, y: y)
         
         var count: Int
         
-        for z in (0..<tempStates.count) {
-            for x in (0..<tempStates[z].count) {
-                count = 0
+        for z in (0..<oldGrid.cubes.count) {
+            for x in (0..<oldGrid.cubes[z].count) {
+                count = countLivingNeighbors(grid: oldGrid, x: x, z: z)
                 
-                if z-1 >= 0 && z-1 < tempStates.count {
-                    if x-1 >= 0 && x-1 < tempStates[z-1].count {
-                        if tempStates[z-1][x-1] == 1 {
-                            count += 1
-                        }
-                    }
-                    
-                    if x >= 0 && x < tempStates[z-1].count {
-                        if tempStates[z-1][x] == 1 {
-                            count += 1
-                        }
-                    }
-                    
-                    if x+1 >= 0 && x+1 < tempStates[z-1].count {
-                        if tempStates[z-1][x+1] == 1 {
-                            count += 1
-                        }
-                    }
-                }
-                
-                if z >= 0 && z < tempStates.count {
-                    if x-1 >= 0 && x-1 < tempStates[z].count {
-                        if tempStates[z][x-1] == 1 {
-                            count += 1
-                        }
-                    }
-                    
-                    if x+1 >= 0 && x+1 < tempStates[z].count {
-                        if tempStates[z][x+1] == 1 {
-                            count += 1
-                        }
-                    }
-                }
-                
-                if z+1 >= 0 && z+1 < tempStates.count {
-                    if x-1 >= 0 && x-1 < tempStates[z+1].count {
-                        if tempStates[z+1][x-1] == 1 {
-                            count += 1
-                        }
-                    }
-                    
-                    if x >= 0 && x < tempStates[z+1].count {
-                        if tempStates[z+1][x] == 1 {
-                            count += 1
-                        }
-                    }
-                    
-                    if x+1 >= 0 && x+1 < tempStates[z+1].count {
-                        if tempStates[z+1][x+1] == 1 {
-                            count += 1
-                        }
-                    }
-                }
-                
-                if tempStates[z][x] == 1 {
+                if oldGrid.cubes[z][x].state == 1 {
                     if (count <= 1) || (count >= 4) {
-                        grid.cubes[z][x].state = 0
+                        newGrid.cubes[z][x].state = 0
                     }
                 } else {
                     if count == 3 {
-                        grid.cubes[z][x].state = 1
+                        newGrid.cubes[z][x].state = 1
                     }
                 }
             }
         }
+        return newGrid
+    }
+    
+    func cloneCube(oldCube: Cube) -> Cube {
+        let newCube: Cube = Cube(x: oldCube.coord.x, y: oldCube.coord.y, z: oldCube.coord.z, cubeEdgeSize: oldCube.cubeEdgeSize)
+        
+        newCube.state = oldCube.state
+        
+        return newCube
+    }
+    
+    func cloneGrid(oldGrid: Grid, y: Int) -> Grid {
+        let newGrid: Grid = Grid(width: oldGrid.size.width, height: oldGrid.size.height, y: y, cubeEdgeSize: oldGrid.cubeEdgeSize)
+        
+        for z in (0..<oldGrid.cubes.count) {
+            for x in (0..<oldGrid.cubes[z].count) {
+                newGrid.cubes[z][x].state = oldGrid.cubes[z][x].state
+            }
+        }
+        
+        return newGrid
+    }
+    
+    func countLivingNeighbors(grid: Grid, x: Int, z: Int) -> Int {
+        var count = 0
+        
+        if z-1 >= 0 && z-1 < grid.cubes.count {
+            if x-1 >= 0 && x-1 < grid.cubes[z-1].count {
+                if grid.cubes[z-1][x-1].state == 1 {
+                    count += 1
+                }
+            }
+            
+            if x >= 0 && x < grid.cubes[z-1].count {
+                if grid.cubes[z-1][x].state == 1 {
+                    count += 1
+                }
+            }
+            
+            if x+1 >= 0 && x+1 < grid.cubes[z-1].count {
+                if grid.cubes[z-1][x+1].state == 1 {
+                    count += 1
+                }
+            }
+        }
+        
+        if z >= 0 && z < grid.cubes.count {
+            if x-1 >= 0 && x-1 < grid.cubes[z].count {
+                if grid.cubes[z][x-1].state == 1 {
+                    count += 1
+                }
+            }
+            
+            if x+1 >= 0 && x+1 < grid.cubes[z].count {
+                if grid.cubes[z][x+1].state == 1 {
+                    count += 1
+                }
+            }
+        }
+        
+        if z+1 >= 0 && z+1 < grid.cubes.count {
+            if x-1 >= 0 && x-1 < grid.cubes[z+1].count {
+                if grid.cubes[z+1][x-1].state == 1 {
+                    count += 1
+                }
+            }
+            
+            if x >= 0 && x < grid.cubes[z+1].count {
+                if grid.cubes[z+1][x].state == 1 {
+                    count += 1
+                }
+            }
+            
+            if x+1 >= 0 && x+1 < grid.cubes[z+1].count {
+                if grid.cubes[z+1][x+1].state == 1 {
+                    count += 1
+                }
+            }
+        }
+        return count
     }
 }

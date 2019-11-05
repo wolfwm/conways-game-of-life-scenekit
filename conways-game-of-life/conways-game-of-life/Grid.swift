@@ -17,28 +17,27 @@ struct Size {
 class Grid: SCNNode {
     var cubes: [[Cube]] = []
     var size: Size = Size()
+    var cubeEdgeSize: CGFloat
+    var y: Int
     
     init(width: Int, height: Int, y: Int, cubeEdgeSize: CGFloat) {
         self.size.width = width
         self.size.height = height
-        
-        var id: Int = 0
+        self.cubeEdgeSize = cubeEdgeSize
+        self.y = y
         
         super.init()
         
         for z in (0..<self.size.height) {
             cubes.append([])
             for x in (0..<self.size.width) {
-                cubes[z].append(Cube(id: id, x: x, y: 0, z: z, cubeEdgeSize: cubeEdgeSize))
+                cubes[z].append(Cube(x: x, y: self.y, z: z, cubeEdgeSize: self.cubeEdgeSize))
                 
                 self.addChildNode(cubes[z][x])
-                
-                id += 1
             }
-            id += 1
         }
         
-        self.position = SCNVector3(x: (CGFloat(width) / 2) - (cubeEdgeSize / 2), y: CGFloat(y) * cubeEdgeSize, z: (CGFloat(height) / 2) - (cubeEdgeSize / 2))
+        self.position = SCNVector3(x: (CGFloat(width) / 2) - (self.cubeEdgeSize / 2), y: CGFloat(self.y) * self.cubeEdgeSize, z: (CGFloat(height) / 2) - (self.cubeEdgeSize / 2))
     }
     
     required init?(coder: NSCoder) {

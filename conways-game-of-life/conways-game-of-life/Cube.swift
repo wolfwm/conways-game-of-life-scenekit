@@ -15,8 +15,8 @@ struct Coord {
 }
 
 class Cube: SCNNode {
-    let id: Int
     var coord: Coord = Coord()
+    var cubeEdgeSize: CGFloat
     var state: Int {
         willSet {// 0 = Dead, 1 = Alive.
             if newValue == 0 {
@@ -26,17 +26,17 @@ class Cube: SCNNode {
             }
         }
     }
-    let colorAlive: CGColor = CGColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
-    let colorDead: CGColor = CGColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 1)
+    let colorAlive: CGColor = CGColor(red: 0.3, green: 0.7, blue: 0.1, alpha: 1)
+    let colorDead: CGColor = CGColor(red: 0.3, green: 0.7, blue: 0.1, alpha: 0)
     
-    init(id: Int, x: Int, y: Int, z: Int, cubeEdgeSize: CGFloat) {
-        self.id = id
+    init(x: Int, y: Int, z: Int, cubeEdgeSize: CGFloat) {
         self.coord.x = x
         self.coord.z = z
+        self.cubeEdgeSize = cubeEdgeSize
         self.state = 0
         super.init()
-        self.position = SCNVector3(CGFloat(self.coord.x) * -cubeEdgeSize, CGFloat(self.coord.y) * -cubeEdgeSize, CGFloat(self.coord.z) * -cubeEdgeSize)
-        self.geometry = SCNBox(width: cubeEdgeSize, height: cubeEdgeSize, length: cubeEdgeSize, chamferRadius: 0)
+        self.position = SCNVector3(CGFloat(self.coord.x) * -self.cubeEdgeSize, CGFloat(self.coord.y) * -self.cubeEdgeSize, CGFloat(self.coord.z) * -self.cubeEdgeSize)
+        self.geometry = SCNBox(width: self.cubeEdgeSize, height: self.cubeEdgeSize, length: self.cubeEdgeSize, chamferRadius: 0.05)
         self.geometry?.firstMaterial?.diffuse.contents = colorDead
     }
      

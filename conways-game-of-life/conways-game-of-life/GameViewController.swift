@@ -13,41 +13,48 @@ class GameViewController: NSViewController, SCNSceneRendererDelegate {
     
     let game = GameOfLife()
     
-    let grid = Grid(width: 30, height: 30, y: 0, cubeEdgeSize: 1)
+    var grids: [Grid] = []
+    
+    // create a new scene
+    let scene = SCNScene(named: "art.scnassets/GameOfLife.scn")
+    
+    let cameraNode = SCNNode()
+    
+    let lightNode = SCNNode()
+    
+    var scnView: SCNView = SCNView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // create a new scene
-        let scene = SCNScene(named: "art.scnassets/GameOfLife.scn")!
-        
         // create and add a camera to the scene
-        let cameraNode = SCNNode()
+        
         cameraNode.camera = SCNCamera()
-        scene.rootNode.addChildNode(cameraNode)
+        scene?.rootNode.addChildNode(cameraNode)
         
         // place the camera
-        cameraNode.position = SCNVector3(x: 0, y: 40, z: 0)
-        cameraNode.look(at: SCNVector3(x: 0, y: -5, z: 0))
+        cameraNode.position = SCNVector3(x: 10, y: 10, z: 10)
+        cameraNode.look(at: SCNVector3(x: 0, y: 0, z: 0))
+        cameraNode.camera?.zFar = 500
         
         // create and add a light to the scene
-        let lightNode = SCNNode()
         lightNode.light = SCNLight()
         lightNode.light!.type = .omni
         lightNode.position = SCNVector3(x: 0, y: 10, z: 10)
-        scene.rootNode.addChildNode(lightNode)
+        scene?.rootNode.addChildNode(lightNode)
         
         // create and add an ambient light to the scene
         let ambientLightNode = SCNNode()
         ambientLightNode.light = SCNLight()
         ambientLightNode.light!.type = .ambient
         ambientLightNode.light!.color = NSColor.darkGray
-        scene.rootNode.addChildNode(ambientLightNode)
+        scene?.rootNode.addChildNode(ambientLightNode)
         
-        scene.rootNode.addChildNode(grid)
+        grids.append(Grid(width: 30, height: 30, y: 0, cubeEdgeSize: 1))
+        scene?.rootNode.addChildNode(grids[0])
         
         // retrieve the SCNView
-        let scnView = self.view as! SCNView
+        scnView = self.view as! SCNView
         
         // set the scene to the view
         scnView.scene = scene
@@ -98,11 +105,14 @@ class GameViewController: NSViewController, SCNSceneRendererDelegate {
         }
     }
     
+    var layer: Int = 0
+    
     override func keyDown(with event: NSEvent) {
         let keyCode = event.keyCode
         
         if keyCode == 0x31 { // 0x31 = spacebar
-            game.updateGrid(grid: grid)
+            step()
+            
         } else if keyCode == 0x24 || keyCode == 0x4C { // 0x24 = return, 0x4C = enter
             isRunning = !isRunning
             
@@ -119,9 +129,22 @@ class GameViewController: NSViewController, SCNSceneRendererDelegate {
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         if time >= nextTime && isRunning {
-            game.updateGrid(grid: grid)
+            step()
             
             nextTime = time + interval
         }
+    }
+    
+    func step() {
+        grids.append(game.createNextGrid(oldGrid: grids[layer], y: layer+1))
+        scene?.rootNode.addChildNode(grids[layer+1])
+        
+        cameraNode.position.y += grids[layer+1].cubeEdgeSize
+        cameraNode.look(at: SCNVector3(0, CGFloat(grids[layer+1].y) * grids[layer+1].cubeEdgeSize, 0))
+        scnView.pointOfView = cameraNode
+        
+        lightNode.position.y += grids[layer+1].cubeEdgeSize
+        
+        layer += 1
     }
 }

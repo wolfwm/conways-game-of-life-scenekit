@@ -14,19 +14,27 @@ class GameOfLife {
     func updateGrid(grid: Grid) {
         let tempStates: [[[Int]]] = copyGridStates(grid: grid)
         
-        var count: Int
+        var countLiving: Int
         
         for y in (0..<tempStates.count) {
             for z in (0..<tempStates[y].count) {
                 for x in (0..<tempStates[y][z].count) {
-                    count = countLivingNeighbors(states: tempStates, x: x, y: y, z: z)
+                    countLiving = countNeighbors(states: tempStates, x: x, y: y, z: z, withState: 1)
                     
                     if tempStates[y][z][x] == 1 {
-                        if (count <= 2) || (count >= 5) {
+                        if (countLiving <= 0) || (countLiving >= 7) {
                             grid.cubes[y][z][x].state = 0
+                        } else if countLiving <= 3 || countLiving >= 4 {
+                            grid.cubes[y][z][x].state = 2
+                        }
+                    } else if tempStates[y][z][x] == 0 {
+                        if countLiving == 4 {
+                            grid.cubes[y][z][x].state = 1
                         }
                     } else {
-                        if count == 4 {
+                        if countLiving <= 2 || countLiving >= 5 {
+                            grid.cubes[y][z][x].state = 0
+                        } else {
                             grid.cubes[y][z][x].state = 1
                         }
                     }
@@ -59,7 +67,8 @@ class GameOfLife {
         for y in (0..<oldGrid.cubes.count) {
             for z in (0..<oldGrid.cubes[y].count) {
                 for x in (0..<oldGrid.cubes[y][z].count) {
-                    newGrid.cubes[y][z][x].state = oldGrid.cubes[y][z][x].state
+                    newGrid.cubes[y][z][x] =
+                       cloneCube(oldCube: oldGrid.cubes[y][z][x])
                 }
             }
         }
@@ -84,25 +93,25 @@ class GameOfLife {
         return states
     }
     
-    func countLivingNeighbors(grid: Grid, x: Int, y: Int, z: Int) -> Int {
+    func countNeighbors(grid: Grid, x: Int, y: Int, z: Int, withState: Int) -> Int {
         var count = 0
         
         if y-1 >= 0 && y-1 < grid.cubes.count {
             if z-1 >= 0 && z-1 < grid.cubes[y-1].count {
                 if x-1 >= 0 && x-1 < grid.cubes[y-1][z-1].count {
-                    if grid.cubes[y-1][z-1][x-1].state == 1 {
+                    if grid.cubes[y-1][z-1][x-1].state == withState {
                         count += 1
                     }
                 }
                 
                 if x >= 0 && x < grid.cubes[y-1][z-1].count {
-                    if grid.cubes[y-1][z-1][x].state == 1 {
+                    if grid.cubes[y-1][z-1][x].state == withState {
                         count += 1
                     }
                 }
                 
                 if x+1 >= 0 && x+1 < grid.cubes[y-1][z-1].count {
-                    if grid.cubes[y-1][z-1][x+1].state == 1 {
+                    if grid.cubes[y-1][z-1][x+1].state == withState {
                         count += 1
                     }
                 }
@@ -110,19 +119,19 @@ class GameOfLife {
             
             if z >= 0 && z < grid.cubes[y-1].count {
                 if x-1 >= 0 && x-1 < grid.cubes[y-1][z].count {
-                    if grid.cubes[y-1][z][x-1].state == 1 {
+                    if grid.cubes[y-1][z][x-1].state == withState {
                         count += 1
                     }
                 }
                 
                 if x >= 0 && x < grid.cubes[y-1][z].count {
-                    if grid.cubes[y-1][z][x].state == 1 {
+                    if grid.cubes[y-1][z][x].state == withState {
                         count += 1
                     }
                 }
                 
                 if x+1 >= 0 && x+1 < grid.cubes[y-1][z].count {
-                    if grid.cubes[y-1][z][x+1].state == 1 {
+                    if grid.cubes[y-1][z][x+1].state == withState {
                         count += 1
                     }
                 }
@@ -130,19 +139,19 @@ class GameOfLife {
             
             if z+1 >= 0 && z+1 < grid.cubes[y-1].count {
                 if x-1 >= 0 && x-1 < grid.cubes[y-1][z+1].count {
-                    if grid.cubes[y-1][z+1][x-1].state == 1 {
+                    if grid.cubes[y-1][z+1][x-1].state == withState {
                         count += 1
                     }
                 }
                 
                 if x >= 0 && x < grid.cubes[y-1][z+1].count {
-                    if grid.cubes[y-1][z+1][x].state == 1 {
+                    if grid.cubes[y-1][z+1][x].state == withState {
                         count += 1
                     }
                 }
                 
                 if x+1 >= 0 && x+1 < grid.cubes[y-1][z+1].count {
-                    if grid.cubes[y-1][z+1][x+1].state == 1 {
+                    if grid.cubes[y-1][z+1][x+1].state == withState {
                         count += 1
                     }
                 }
@@ -152,19 +161,19 @@ class GameOfLife {
         if y >= 0 && y < grid.cubes.count {
             if z-1 >= 0 && z-1 < grid.cubes[y].count {
                 if x-1 >= 0 && x-1 < grid.cubes[y][z-1].count {
-                    if grid.cubes[y][z-1][x-1].state == 1 {
+                    if grid.cubes[y][z-1][x-1].state == withState {
                         count += 1
                     }
                 }
                 
                 if x >= 0 && x < grid.cubes[y][z-1].count {
-                    if grid.cubes[y][z-1][x].state == 1 {
+                    if grid.cubes[y][z-1][x].state == withState {
                         count += 1
                     }
                 }
                 
                 if x+1 >= 0 && x+1 < grid.cubes[y][z-1].count {
-                    if grid.cubes[y][z-1][x+1].state == 1 {
+                    if grid.cubes[y][z-1][x+1].state == withState {
                         count += 1
                     }
                 }
@@ -172,13 +181,13 @@ class GameOfLife {
             
             if z >= 0 && z < grid.cubes[y].count {
                 if x-1 >= 0 && x-1 < grid.cubes[y][z].count {
-                    if grid.cubes[y][z][x-1].state == 1 {
+                    if grid.cubes[y][z][x-1].state == withState {
                         count += 1
                     }
                 }
                 
                 if x+1 >= 0 && x+1 < grid.cubes[y][z].count {
-                    if grid.cubes[y][z][x+1].state == 1 {
+                    if grid.cubes[y][z][x+1].state == withState {
                         count += 1
                     }
                 }
@@ -186,19 +195,19 @@ class GameOfLife {
             
             if z+1 >= 0 && z+1 < grid.cubes[y].count {
                 if x-1 >= 0 && x-1 < grid.cubes[y][z+1].count {
-                    if grid.cubes[y][z+1][x-1].state == 1 {
+                    if grid.cubes[y][z+1][x-1].state == withState {
                         count += 1
                     }
                 }
                 
                 if x >= 0 && x < grid.cubes[y][z+1].count {
-                    if grid.cubes[y][z+1][x].state == 1 {
+                    if grid.cubes[y][z+1][x].state == withState {
                         count += 1
                     }
                 }
                 
                 if x+1 >= 0 && x+1 < grid.cubes[y][z+1].count {
-                    if grid.cubes[y][z+1][x+1].state == 1 {
+                    if grid.cubes[y][z+1][x+1].state == withState {
                         count += 1
                     }
                 }
@@ -208,19 +217,19 @@ class GameOfLife {
         if y+1 >= 0 && y+1 < grid.cubes.count {
             if z-1 >= 0 && z-1 < grid.cubes[y+1].count {
                 if x-1 >= 0 && x-1 < grid.cubes[y+1][z-1].count {
-                    if grid.cubes[y+1][z-1][x-1].state == 1 {
+                    if grid.cubes[y+1][z-1][x-1].state == withState {
                         count += 1
                     }
                 }
                 
                 if x >= 0 && x < grid.cubes[y+1][z-1].count {
-                    if grid.cubes[y+1][z-1][x].state == 1 {
+                    if grid.cubes[y+1][z-1][x].state == withState {
                         count += 1
                     }
                 }
                 
                 if x+1 >= 0 && x+1 < grid.cubes[y+1][z-1].count {
-                    if grid.cubes[y+1][z-1][x+1].state == 1 {
+                    if grid.cubes[y+1][z-1][x+1].state == withState {
                         count += 1
                     }
                 }
@@ -228,19 +237,19 @@ class GameOfLife {
             
             if z >= 0 && z < grid.cubes[y+1].count {
                 if x-1 >= 0 && x-1 < grid.cubes[y+1][z].count {
-                    if grid.cubes[y+1][z][x-1].state == 1 {
+                    if grid.cubes[y+1][z][x-1].state == withState {
                         count += 1
                     }
                 }
                 
                 if x >= 0 && x < grid.cubes[y+1][z].count {
-                    if grid.cubes[y+1][z][x].state == 1 {
+                    if grid.cubes[y+1][z][x].state == withState {
                         count += 1
                     }
                 }
                 
                 if x+1 >= 0 && x+1 < grid.cubes[y+1][z].count {
-                    if grid.cubes[y+1][z][x+1].state == 1 {
+                    if grid.cubes[y+1][z][x+1].state == withState {
                         count += 1
                     }
                 }
@@ -248,19 +257,19 @@ class GameOfLife {
             
             if z+1 >= 0 && z+1 < grid.cubes[y+1].count {
                 if x-1 >= 0 && x-1 < grid.cubes[y+1][z+1].count {
-                    if grid.cubes[y+1][z+1][x-1].state == 1 {
+                    if grid.cubes[y+1][z+1][x-1].state == withState {
                         count += 1
                     }
                 }
                 
                 if x >= 0 && x < grid.cubes[y+1][z+1].count {
-                    if grid.cubes[y+1][z+1][x].state == 1 {
+                    if grid.cubes[y+1][z+1][x].state == withState {
                         count += 1
                     }
                 }
                 
                 if x+1 >= 0 && x+1 < grid.cubes[y+1][z+1].count {
-                    if grid.cubes[y+1][z+1][x+1].state == 1 {
+                    if grid.cubes[y+1][z+1][x+1].state == withState {
                         count += 1
                     }
                 }
@@ -269,25 +278,25 @@ class GameOfLife {
         return count
     }
     
-    func countLivingNeighbors(states: [[[Int]]], x: Int, y: Int, z: Int) -> Int {
+    func countNeighbors(states: [[[Int]]], x: Int, y: Int, z: Int, withState: Int) -> Int {
         var count = 0
         
         if y-1 >= 0 && y-1 < states.count {
             if z-1 >= 0 && z-1 < states[y-1].count {
                 if x-1 >= 0 && x-1 < states[y-1][z-1].count {
-                    if states[y-1][z-1][x-1] == 1 {
+                    if states[y-1][z-1][x-1] == withState {
                         count += 1
                     }
                 }
                 
                 if x >= 0 && x < states[y-1][z-1].count {
-                    if states[y-1][z-1][x] == 1 {
+                    if states[y-1][z-1][x] == withState {
                         count += 1
                     }
                 }
                 
                 if x+1 >= 0 && x+1 < states[y-1][z-1].count {
-                    if states[y-1][z-1][x+1] == 1 {
+                    if states[y-1][z-1][x+1] == withState {
                         count += 1
                     }
                 }
@@ -295,19 +304,19 @@ class GameOfLife {
             
             if z >= 0 && z < states[y-1].count {
                 if x-1 >= 0 && x-1 < states[y-1][z].count {
-                    if states[y-1][z][x-1] == 1 {
+                    if states[y-1][z][x-1] == withState {
                         count += 1
                     }
                 }
                 
                 if x >= 0 && x < states[y-1][z].count {
-                    if states[y-1][z][x] == 1 {
+                    if states[y-1][z][x] == withState {
                         count += 1
                     }
                 }
                 
                 if x+1 >= 0 && x+1 < states[y-1][z].count {
-                    if states[y-1][z][x+1] == 1 {
+                    if states[y-1][z][x+1] == withState {
                         count += 1
                     }
                 }
@@ -315,19 +324,19 @@ class GameOfLife {
             
             if z+1 >= 0 && z+1 < states[y-1].count {
                 if x-1 >= 0 && x-1 < states[y-1][z+1].count {
-                    if states[y-1][z+1][x-1] == 1 {
+                    if states[y-1][z+1][x-1] == withState {
                         count += 1
                     }
                 }
                 
                 if x >= 0 && x < states[y-1][z+1].count {
-                    if states[y-1][z+1][x] == 1 {
+                    if states[y-1][z+1][x] == withState {
                         count += 1
                     }
                 }
                 
                 if x+1 >= 0 && x+1 < states[y-1][z+1].count {
-                    if states[y-1][z+1][x+1] == 1 {
+                    if states[y-1][z+1][x+1] == withState {
                         count += 1
                     }
                 }
@@ -337,19 +346,19 @@ class GameOfLife {
         if y >= 0 && y < states.count {
             if z-1 >= 0 && z-1 < states[y].count {
                 if x-1 >= 0 && x-1 < states[y][z-1].count {
-                    if states[y][z-1][x-1] == 1 {
+                    if states[y][z-1][x-1] == withState {
                         count += 1
                     }
                 }
                 
                 if x >= 0 && x < states[y][z-1].count {
-                    if states[y][z-1][x] == 1 {
+                    if states[y][z-1][x] == withState {
                         count += 1
                     }
                 }
                 
                 if x+1 >= 0 && x+1 < states[y][z-1].count {
-                    if states[y][z-1][x+1] == 1 {
+                    if states[y][z-1][x+1] == withState {
                         count += 1
                     }
                 }
@@ -357,13 +366,13 @@ class GameOfLife {
             
             if z >= 0 && z < states[y].count {
                 if x-1 >= 0 && x-1 < states[y][z].count {
-                    if states[y][z][x-1] == 1 {
+                    if states[y][z][x-1] == withState {
                         count += 1
                     }
                 }
                 
                 if x+1 >= 0 && x+1 < states[y][z].count {
-                    if states[y][z][x+1] == 1 {
+                    if states[y][z][x+1] == withState {
                         count += 1
                     }
                 }
@@ -371,19 +380,19 @@ class GameOfLife {
             
             if z+1 >= 0 && z+1 < states[y].count {
                 if x-1 >= 0 && x-1 < states[y][z+1].count {
-                    if states[y][z+1][x-1] == 1 {
+                    if states[y][z+1][x-1] == withState {
                         count += 1
                     }
                 }
                 
                 if x >= 0 && x < states[y][z+1].count {
-                    if states[y][z+1][x] == 1 {
+                    if states[y][z+1][x] == withState {
                         count += 1
                     }
                 }
                 
                 if x+1 >= 0 && x+1 < states[y][z+1].count {
-                    if states[y][z+1][x+1] == 1 {
+                    if states[y][z+1][x+1] == withState {
                         count += 1
                     }
                 }
@@ -393,19 +402,19 @@ class GameOfLife {
         if y+1 >= 0 && y+1 < states.count {
             if z-1 >= 0 && z-1 < states[y+1].count {
                 if x-1 >= 0 && x-1 < states[y+1][z-1].count {
-                    if states[y+1][z-1][x-1] == 1 {
+                    if states[y+1][z-1][x-1] == withState {
                         count += 1
                     }
                 }
                 
                 if x >= 0 && x < states[y+1][z-1].count {
-                    if states[y+1][z-1][x] == 1 {
+                    if states[y+1][z-1][x] == withState {
                         count += 1
                     }
                 }
                 
                 if x+1 >= 0 && x+1 < states[y+1][z-1].count {
-                    if states[y+1][z-1][x+1] == 1 {
+                    if states[y+1][z-1][x+1] == withState {
                         count += 1
                     }
                 }
@@ -413,19 +422,19 @@ class GameOfLife {
             
             if z >= 0 && z < states[y+1].count {
                 if x-1 >= 0 && x-1 < states[y+1][z].count {
-                    if states[y+1][z][x-1] == 1 {
+                    if states[y+1][z][x-1] == withState {
                         count += 1
                     }
                 }
                 
                 if x >= 0 && x < states[y+1][z].count {
-                    if states[y+1][z][x] == 1 {
+                    if states[y+1][z][x] == withState {
                         count += 1
                     }
                 }
                 
                 if x+1 >= 0 && x+1 < states[y+1][z].count {
-                    if states[y+1][z][x+1] == 1 {
+                    if states[y+1][z][x+1] == withState {
                         count += 1
                     }
                 }
@@ -433,19 +442,19 @@ class GameOfLife {
             
             if z+1 >= 0 && z+1 < states[y+1].count {
                 if x-1 >= 0 && x-1 < states[y+1][z+1].count {
-                    if states[y+1][z+1][x-1] == 1 {
+                    if states[y+1][z+1][x-1] == withState {
                         count += 1
                     }
                 }
                 
                 if x >= 0 && x < states[y+1][z+1].count {
-                    if states[y+1][z+1][x] == 1 {
+                    if states[y+1][z+1][x] == withState {
                         count += 1
                     }
                 }
                 
                 if x+1 >= 0 && x+1 < states[y+1][z+1].count {
-                    if states[y+1][z+1][x+1] == 1 {
+                    if states[y+1][z+1][x+1] == withState {
                         count += 1
                     }
                 }

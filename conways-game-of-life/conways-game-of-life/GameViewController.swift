@@ -50,7 +50,7 @@ class GameViewController: NSViewController, SCNSceneRendererDelegate {
         ambientLightNode.light!.color = NSColor.darkGray
         scene?.rootNode.addChildNode(ambientLightNode)
         
-        grids.append(Grid(width: 30, height: 30, depth: 30, cubeEdgeSize: 1))
+        grids.append(Grid(width: 10, height: 10, depth: 10, cubeEdgeSize: 1))
         scene?.rootNode.addChildNode(grids[0])
         
         // retrieve the SCNView
